@@ -1,0 +1,33 @@
+# 说明
+name: '北京水利'
+area: '北京市'
+# 名称
+spider: BeiJingShuiLiSpider
+
+# 网址
+website: 'http://www.bwea.org.cn'
+
+# 是否开启chrome
+selenium: True
+
+# 开始连接
+start_urls: 'http://www.bwea.org.cn/bwea_credit/credit/jsp_credit_cydw.jsp'
+
+# 列表xpath
+list: '//div[@id="ext-gen14"]//div//table//tbody//tr'
+
+item:
+  # 标题
+  name: './/td[1]//div//text()'
+
+# 下一页按钮
+next_button: True
+
+# 下一页
+next: '//button[@id="ext-gen36"]'
+
+# 当前页
+page: '//input[@id="ext-comp-1004"]'
+
+# 总页数
+pages: '//div[@id="ext-comp-1005"]'

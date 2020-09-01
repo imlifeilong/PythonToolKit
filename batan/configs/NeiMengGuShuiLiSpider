@@ -1,0 +1,33 @@
+# 说明
+name: '内蒙古水利'
+area: '内蒙古自治区'
+# 名称
+spider: NeiMengGuShuiLiSpider
+
+# 网址
+website: 'http://www.nmgslgcjsw.org/'
+
+# 是否开启chrome
+selenium: True
+
+# 开始连接
+start_urls: 'http://www.nmgslgcjsw.org/xylist.asp'
+
+# 列表xpath
+list: '//table[@id="table6"]//tbody//tr[position()>1]'
+
+item:
+  # 标题
+  name: './/td[2]//p//a//text()'
+
+# 下一页按钮
+next_button: False
+
+# 下一页
+next: "//a[contains(text(), '下页')]/@href"
+
+# 当前页
+page: "//a[contains(text(), '下页')]//..//font[3]"
+
+# 总页数
+pages: "//a[contains(text(), '下页')]//..//font[2]"
