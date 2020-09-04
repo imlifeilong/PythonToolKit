@@ -1,0 +1,34 @@
+# 说明
+name: '浙江水利'
+area: '浙江省'
+# 名称
+spider: ZheJiangShuiLiSpider
+
+# 网址
+website: 'http://slt.zj.gov.cn/'
+
+# 是否开启chrome
+selenium: True
+
+# 开始连接
+start_urls: 'http://slt.zj.gov.cn/zjslsc/water/employment/list.do?corpName='
+
+# 列表xpath
+list: '//table[@id="employmentListTable"]//tbody//tr[position()>1]'
+
+item:
+  # 标题
+  name: './/td[1]//a//span//text()'
+
+# 下一页按钮
+next_button: True
+
+# 下一页
+next: '//div[@id="page_content"]//a[@style="color: red;"]/following-sibling::a[1]'
+
+# 当前页
+page: '//input[@id="currentPage"]'
+
+pages_type: string
+# 总页数
+pages: 'substring-after(//div[@id="page_content"]//b/text(), "总页数 ")'

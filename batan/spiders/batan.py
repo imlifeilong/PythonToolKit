@@ -43,7 +43,7 @@ class BaseSpider(scrapy.Spider):
     def start_requests(self):
         self.start_urls = self.config['start_urls']
         if self.start_urls:
-            yield self._request(url=self.start_urls)
+            yield self._request(url=self.start_urls, dont_filter=True)
 
     def parse(self, response):
         print('--------------->', response)
@@ -52,6 +52,7 @@ class BaseSpider(scrapy.Spider):
         yield from self.parse_next(response)
 
     def parse_list(self, response):
+
         for row in response.xpath(self.config['list']):
             loader = BatanItemLoader(selector=row, response=response)
             for key, value in self.config['item'].items():
@@ -81,14 +82,14 @@ class BaseSpider(scrapy.Spider):
         page = 1
         if not self.config['page']: return 1
         if 'page_type' in self.config and self.config['page_type'].startswith('string'):
-            page = response.xpath(self.config['page'])
+            page = response.xpath(self.config['page']).extract_first()
         else:
             element = self.driver.find_element_by_xpath(self.config['page'])
             if element.tag_name.startswith('input'):
                 page = element.get_attribute('value')
             else:
                 page = element.text
-        return int(page) if page else 1
+        return int(page.strip()) if page else 1
 
     def _is_more(self, page, pages):
         '''判断下一页'''
@@ -110,8 +111,9 @@ class BaseSpider(scrapy.Spider):
 
     def parse_next_url(self, response):
         '''打开连接'''
-        _next = response.xpath(self.config['next']).extract_first()
-        if _next:
-            url = self.config['website'] + _next
-            print('next link', url)
-            yield self._request(url=url, dont_filter=True)
+        if 'next' in self.config:
+            _next = response.xpath(self.config['next']).extract_first()
+            if _next:
+                url = self.config['website'] + _next
+                print('next link', url)
+                yield self._request(url=url, dont_filter=True)

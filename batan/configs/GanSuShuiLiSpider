@@ -1,0 +1,35 @@
+# 说明
+name: '甘肃水利'
+area: '甘肃省'
+# 名称
+spider: GanSuShuiLiSpider
+
+# 网址
+website: 'http://118.180.24.163:8888/'
+
+# 是否开启chrome
+selenium: True
+
+# 开始连接
+start_urls: 'http://118.180.24.163:8888/gswebsite/enterprisebaseinfo/list.html'
+
+# 列表xpath
+list: '//table[@class="tableList"]//tbody//tr'
+
+item:
+  # 标题
+  name: './/td[2]//div//a/text()'
+
+# 下一页按钮
+next_button: True
+
+# 下一页
+next: '//a[contains(text(), "下一页")]'
+
+# page_type: string
+# 当前页
+page: '//select[@id="selectPage"]//option[@selected="selected"]'
+
+pages_type: string
+# 总页数
+pages: '//a[contains(text(), "末页")]/@href'

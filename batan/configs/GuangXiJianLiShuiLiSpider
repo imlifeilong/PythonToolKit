@@ -1,0 +1,35 @@
+# 说明
+name: '广西水利监理'
+area: '广西壮族自治区'
+# 名称
+spider: GuangXiJianLiShuiLiSpider
+
+# 网址
+website: 'http://222.216.6.169/'
+
+# 是否开启chrome
+selenium: True
+
+# 开始连接
+start_urls: 'http://222.216.6.169/gxsltpmp/cyDanwei.action?entId=2'
+
+# 列表xpath
+list: '//table[@class="table table-striped xypj"]//tbody//tr'
+
+item:
+  # 标题
+  name: './/td[2]//a/text()'
+
+# 下一页按钮
+next_button: True
+
+# 下一页
+next: '//a[contains(text(), "下一页")]'
+
+# page_type: string
+# 当前页
+page: '//span[@class="currPageNum"]'
+
+# pages_type: string
+# 总页数
+pages: '//span[@class="totalPageNum"]'

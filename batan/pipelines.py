@@ -17,7 +17,6 @@ class BatanPipeline(object):
             headers={'Content-Type': 'application/json'},
             data=json.dumps(data)
         )
-        print(r.json())
         if r.ok and r.status_code == 200:
             res = r.json()
             print(res)
@@ -28,6 +27,7 @@ class BatanPipeline(object):
             logging.error('post数据失败！%s' % data)
 
     def process_item(self, item, spider):
-        if item['source'].endswith('ShuiLiSpider'):
+        if item['source'].endswith('ShuiLiSpider') and 'name' in item:
+            item['name'] = item['name'].strip()
             self._post(spider.crawler.settings['ADD_SHUILI_COMPANY'], dict(item))
         return item

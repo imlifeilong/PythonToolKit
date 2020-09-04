@@ -3,6 +3,7 @@ from selenium import webdriver
 from selenium.webdriver import DesiredCapabilities
 import platform
 import os
+from batan.chrome_proxy_extension import proxy_auth_plugin_path
 
 
 class WebDriver(object):
@@ -13,6 +14,7 @@ class WebDriver(object):
 
     def __call__(self, *args, **kwargs):
         chrome_options = Options()
+        # chrome_options.add_extension(proxy_auth_plugin_path)
         # 无头模式
         chrome_options.add_argument('--headless')
         chrome_options.add_argument('--disable-gpu')
@@ -26,12 +28,12 @@ class WebDriver(object):
         chrome_options.add_argument('–single-process')
         # 无痕模式
         chrome_options.add_argument('–incognito')
-
+        # 代理
         # 禁止图片和css加载
         chrome_options.add_experimental_option("prefs", {
             'profile.managed_default_content_settings.images': 2,
             # 'profile.managed_default_content_settings.javascript': 2,
-            'permissions.default.stylesheet': 2
+            # 'permissions.default.stylesheet': 2
         })
 
         desired_capabilities = DesiredCapabilities.CHROME

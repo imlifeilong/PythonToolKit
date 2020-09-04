@@ -2,7 +2,9 @@ import scrapy
 import time
 import random
 import re
-
+from selenium.webdriver.common.by import By
+from selenium.webdriver.support.ui import WebDriverWait
+from selenium.webdriver.support import expected_conditions as EC
 
 # 重写Request添加方式
 class ClickRequest(scrapy.Request):
@@ -22,7 +24,7 @@ class ClickAccess(object):
 
     def __call__(self, *args, **kwargs):
         element = self.webdriver.find_element_by_xpath(self.config['next'])
-        print(element, self.config['next'])
+        # print(element, self.config['next'])
         element.click()
         # 延时
         time.sleep(random.random() * 0.9)
@@ -55,7 +57,12 @@ class ChromeAccess(object):
         # url = self.url if self.url else self.request.url
         self.webdriver.get(self.request.url)
         # 延时
-        time.sleep(random.random() * 0.9)
+        # self.webdriver.implicitly_wait(5)
+        # time.sleep(random.random() * 5
+        # element = WebDriverWait(self.webdriver, 20).until(
+        #     EC.visibility_of_element_located((By.XPATH, '//tbody[@id="enterprise_list"]//tr'))
+        # )
+        # self.webdriver.set_page_load_timeout(30)
         return scrapy.http.HtmlResponse(
             url=self.request.url,
             body=self.webdriver.page_source.encode('utf-8'),

@@ -1,0 +1,35 @@
+# 说明
+name: '湖北水利'
+area: '湖北省'
+# 名称
+spider: HuBeiShuiLiSpider
+
+# 网址
+website: 'http://219.140.162.169:8090/'
+
+# 是否开启chrome
+selenium: True
+
+# 开始连接
+start_urls: 'http://219.140.162.169:8090/f/xy/baseUnitList'
+
+# 列表xpath
+list: '//table[@id="contentTable"]//tbody//tr'
+
+item:
+  # 标题
+  name: './/td[1]//a/text()'
+
+# 下一页按钮
+next_button: True
+
+# 下一页
+next: '//a[contains(text(), "下一页")]'
+
+# page_type: string
+# 当前页
+page: '//div[@class="pagination"]//li[@class="active"]//a'
+
+# pages_type: string
+# 总页数
+pages: '//a[contains(text(), "下一页")]//..//preceding-sibling::li[1]//a'
