@@ -46,7 +46,7 @@ class BaseSpider(scrapy.Spider):
             yield self._request(url=self.start_urls, dont_filter=True)
 
     def parse(self, response):
-        print('--------------->', response)
+        print('--------------->', response.text)
 
         yield from self.parse_list(response)
         yield from self.parse_next(response)
@@ -96,24 +96,25 @@ class BaseSpider(scrapy.Spider):
         return True if page < pages else False
 
     def parse_next(self, response):
-        pages = self._total_pages(response)
-        page = self._page(response)
-        print(page, pages, self._is_more(page, pages))
-        if self._is_more(page, pages):
-            if self.config['next_button']:
-                yield from self.parse_next_click(response)
-            elif not self.config['next_button']:
-                yield from self.parse_next_url(response)
+        if 'next' in self.config:
+            pages = self._total_pages(response)
+            page = self._page(response)
+            print(page, pages, self._is_more(page, pages))
+            if self._is_more(page, pages):
+                if self.config['next_button']:
+                    yield from self.parse_next_click(response)
+                elif not self.config['next_button']:
+                    yield from self.parse_next_url(response)
 
     def parse_next_click(self, response):
         '''点击下一页'''
+
         yield ClickRequest(response.url, dont_filter=True)
 
     def parse_next_url(self, response):
         '''打开连接'''
-        if 'next' in self.config:
-            _next = response.xpath(self.config['next']).extract_first()
-            if _next:
-                url = self.config['website'] + _next
-                print('next link', url)
-                yield self._request(url=url, dont_filter=True)
+        _next = response.xpath(self.config['next']).extract_first()
+        if _next:
+            url = self.config['website'] + _next
+            print('next link', url)
+            yield self._request(url=url, dont_filter=True)
