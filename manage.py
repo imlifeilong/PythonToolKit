@@ -25,7 +25,7 @@ spider_list = [
     # 'HaiNanShuiLiSpider',  # 海南水利
     # 'ChongQingShuiLiSpider',  # 重庆水利
     # 'GuiZhouShuiLiSpider',  # 贵州水利
-    'XiZangShiGongShuiLiSpider',  # 西藏水利施工
+    # 'XiZangShiGongShuiLiSpider',  # 西藏水利施工
     # 'XiZangGongHuoShuiLiSpider',  # 西藏水利供货
     # 'XiZangJianLiShuiLiSpider',  # 西藏水利监理
     # 'XiZangJianSheShuiLiSpider',  # 西藏水利建设
@@ -39,6 +39,7 @@ spider_list = [
     # 'GanSuShuiLiSpider',  # 甘肃水利
     # 'QingHaiShuiLiSpider',  # 青海水利
     # 'ZhongGuoShuiLiSpider',  # 国家水利
+    'YunNanShuiLiSpider'  # 云南水利
 ]
 
 settings = get_project_settings().copy()
@@ -54,8 +55,11 @@ def crawl(spider_names):
 def cus_crawl(spiders):
     process = CrawlerProcess(settings)
     for spider in spiders:
-        SpidersCus = type(spider, (BaseSpider,), {'name': spider})
-        process.crawl(SpidersCus)
+        if spider == 'YunNanShuiLiSpider':
+            process.crawl(spider)
+        else:
+            SpidersCus = type(spider, (BaseSpider,), {'name': spider})
+            process.crawl(SpidersCus)
     process.start()
 
 
