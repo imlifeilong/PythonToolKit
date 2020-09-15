@@ -3,6 +3,7 @@
 from scrapy.crawler import CrawlerProcess
 from scrapy.utils.project import get_project_settings
 from batan.spiders.batan import BaseSpider
+from batan.spiders.project import BaseProjectSpider
 
 spider_list = [
     # 'BeiJingShuiLiSpider', # 北京水利
@@ -39,7 +40,8 @@ spider_list = [
     # 'GanSuShuiLiSpider',  # 甘肃水利
     # 'QingHaiShuiLiSpider',  # 青海水利
     # 'ZhongGuoShuiLiSpider',  # 国家水利
-    'YunNanShuiLiSpider'  # 云南水利
+    # 'YunNanShuiLiSpider'  # 云南水利
+    'ZhongGuoShuiLiProjectSpider',  # 国家水利项目
 ]
 
 settings = get_project_settings().copy()
@@ -57,6 +59,9 @@ def cus_crawl(spiders):
     for spider in spiders:
         if spider == 'YunNanShuiLiSpider':
             process.crawl(spider)
+        elif spider == 'ZhongGuoShuiLiProjectSpider':
+            SpidersPuc = type(spider, (BaseProjectSpider,), {'name': spider})
+            process.crawl(SpidersPuc)
         else:
             SpidersCus = type(spider, (BaseSpider,), {'name': spider})
             process.crawl(SpidersCus)

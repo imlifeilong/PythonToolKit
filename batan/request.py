@@ -6,9 +6,11 @@ from selenium.webdriver.common.by import By
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 
+
 # 重写Request添加方式
 class ClickRequest(scrapy.Request):
-    def __init__(self, url, **kwargs):
+    def __init__(self, url, access_xpath, **kwargs):
+        self.access_xpath = access_xpath
         # 继承父类
         super(ClickRequest, self).__init__(url, **kwargs)
 
@@ -21,9 +23,12 @@ class ClickAccess(object):
         self.webdriver = webdriver
         self.request = request
         self.spider = kwargs.get('spider')
+        self.access_xpath = kwargs.get('access_xpath')
 
     def __call__(self, *args, **kwargs):
-        element = self.webdriver.find_element_by_xpath(self.config['next'])
+        print('==================> xpath', self.access_xpath)
+        element = self.webdriver.find_element_by_xpath(self.access_xpath)
+        # element = self.webdriver.find_element_by_xpath(self.config['next'])
         # print(element, self.config['next'])
         element.click()
         # 延时

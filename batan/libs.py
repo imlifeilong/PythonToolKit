@@ -3,7 +3,18 @@ from scrapy.loader import ItemLoader
 from scrapy.loader.processors import TakeFirst, MapCompose, Join
 import yaml
 import os
-from batan.items import BatanItem
+from batan.items import BatanItem, ProjectItem
+
+
+class ProjectItemLoader(ItemLoader):
+    default_output_processor = TakeFirst()
+
+    # content_out = Join()
+    # labels_out = Join(separator='#|#')
+
+    def __init__(self, item=None, selector=None, response=None, parent=None, **context):
+        item = item or ProjectItem()
+        super(ProjectItemLoader, self).__init__(item, selector, response, parent, **context)
 
 
 class BatanItemLoader(ItemLoader):

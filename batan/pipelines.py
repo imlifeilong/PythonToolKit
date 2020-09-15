@@ -27,7 +27,8 @@ class BatanPipeline(object):
             logging.error('post数据失败！%s' % data)
 
     def process_item(self, item, spider):
-        if item['source'].endswith('ShuiLiSpider') and 'name' in item:
+        if spider.config['spider'].startswith('ZhongGuoShuiLiProjectSpider'):
             item['name'] = item['name'].strip()
-            self._post(spider.crawler.settings['ADD_SHUILI_COMPANY'], dict(item))
+            self._post(spider.crawler.settings['ADD_SHUILI_PROJECT'], dict(item))
+
         return item

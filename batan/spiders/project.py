@@ -2,15 +2,13 @@ from scrapy import signals
 import scrapy
 import re
 from batan.libs import parse_config
-from batan.libs import BatanItemLoader
+from batan.libs import ProjectItemLoader
 from batan.request import ClickRequest, ChromeRequest
 from batan.webdriver import WebDriver
 
 
-class BaseSpider(scrapy.Spider):
+class BaseProjectSpider(scrapy.Spider):
     driver = None
-    # chromedriver = None
-    # pages = None
     name = None
 
     def __init__(self, name=None):
@@ -38,7 +36,6 @@ class BaseSpider(scrapy.Spider):
         self.driver.close()
         self.driver.quit()
         self.driver = None
-        # self.chromedriver = None
 
     def start_requests(self):
         self.start_urls = self.config['start_urls']
@@ -46,31 +43,19 @@ class BaseSpider(scrapy.Spider):
             yield self._request(url=self.start_urls, dont_filter=True)
 
     def parse(self, response):
-        print('--------------->', response.text)
+        print('--------------->', response)
 
-        # yield from self.parse_row(response)
         yield from self.parse_list(response)
         yield from self.parse_next(response)
 
     def parse_list(self, response):
         for row in response.xpath(self.config['list']):
-            loader = BatanItemLoader(selector=row, response=response)
+            loader = ProjectItemLoader(selector=row, response=response)
             for key, value in self.config['item'].items():
                 loader.add_xpath(key, value)
             item = loader.load_item()
-            item['source'] = self.name
-            item['area'] = self.config['area']
             print('----------------->', item)
-            # yield item
-
-    def parse_row(self, response):
-        # access_xpath = response.xpath(self.config['detail_button'])
-        # for a in access_xpath:
-        a = '//div[@id="divgrid"]//table//tbody//tr[1]/td[2]//a'
-        yield ClickRequest(url=response.url, access_xpath=a,  dont_filter=True)
-
-    def parse_detail(self, response):
-        print('-------------------------->', response.text)
+            yield item
 
     def _total_pages(self, response):
         '''获取总页数'''

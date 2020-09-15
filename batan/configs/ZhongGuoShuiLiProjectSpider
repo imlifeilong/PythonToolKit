@@ -1,8 +1,8 @@
 # 说明
-name: '全国水利'
+name: '全国水利项目'
 area: '中国'
 # 名称
-spider: ZhongGuoShuiLiSpider
+spider: ZhongGuoShuiLiProjectSpider
 
 # 网址
 website: 'http://rcpu.cwun.org/'
@@ -11,17 +11,19 @@ website: 'http://rcpu.cwun.org/'
 selenium: True
 
 # 开始连接
-start_urls: 'http://rcpu.cwun.org/UnInfo.aspx'
+start_urls: 'http://rcpu.cwun.org/PROJInfo.aspx'
 
 # 列表xpath
 list: '//div[@id="divgrid"]//table//tbody//tr'
 
 item:
   # 标题
-  name: './/td[2]//a/text()'
-  license: './/td[3]//text()'
-  legal: './/td[4]//text()'
-  province: './/td[5]//text()'
+  name: './/td[4]//text()'
+  prjName: './/td[2]//a/text()'
+  buildCorpName: './/td[5]//text()'
+  prjType: './/td[3]//text()'
+  id: './/td[7]//span/@data-rid'
+  add_date: './/td[6]//text()'
 
 detail_button: './/td[2]//a'
 

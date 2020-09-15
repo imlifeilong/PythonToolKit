@@ -85,7 +85,7 @@ class BatanDownloaderMiddleware(object):
         # 点击访问
         if isinstance(request, ClickRequest):
             return ClickAccess(request=request, config=spider.config, webdriver=spider.driver,
-                               spider=spider)()
+                               spider=spider, access_xpath=request.access_xpath)()
         # 浏览器访问
         if isinstance(request, ChromeRequest):
             return ChromeAccess(request=request, webdriver=spider.driver)()

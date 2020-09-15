@@ -13,3 +13,16 @@ class BatanItem(scrapy.Item):
     name = scrapy.Field()
     source = scrapy.Field()
     area = scrapy.Field()
+    license = scrapy.Field()
+    legal = scrapy.Field()
+    province = scrapy.Field()
+    add_date = scrapy.Field()
+
+
+class ProjectItem(scrapy.Item):
+    name = scrapy.Field()
+    prjName = scrapy.Field()
+    buildCorpName = scrapy.Field()
+    prjType = scrapy.Field()
+    id = scrapy.Field()
+    add_date = scrapy.Field()

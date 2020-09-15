@@ -95,6 +95,8 @@ ITEM_PIPELINES = {
 # HTTPCACHE_STORAGE = 'scrapy.extensions.httpcache.FilesystemCacheStorage'
 
 
-DOMAIN_NAME = 'http://etl.maotouin.com'
+# DOMAIN_NAME = 'http://etl.maotouin.com'
+DOMAIN_NAME = 'http://127.0.0.1:5000/'
 # origin post api
 ADD_SHUILI_COMPANY = DOMAIN_NAME + '/v1/ShuiLiCompany.htm'
+ADD_SHUILI_PROJECT = DOMAIN_NAME + '/v1/ShuiLiProject.htm'
