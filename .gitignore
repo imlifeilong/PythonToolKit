@@ -8,3 +8,6 @@ build
 __pycache__
 venv
 datafile
+output_images
+split_pages
+output
