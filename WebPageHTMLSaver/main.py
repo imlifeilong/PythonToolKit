@@ -343,6 +343,7 @@ if __name__ == "__main__":
     # print(f"并发线程: {args.threads}")
     # print("-" * 50)
     url = 'https://www.sohu.com/a/917955713_115239?edtsign=017EEB1AC6C0BBEBB4C64E33034A953C3B272E0F&edtcode=urgGg3lvqugR8UK%2BHjigtw%3D%3D&scm=thor.280_14-200000.0.0.&spm=smpc.home.top-news2.8.17535920499339FEPs8P_1467'
+    url = 'https://mp.weixin.qq.com/s?__biz=MjM5MzA0MTg2MA==&mid=2654435937&idx=5&sn=76a8f10340b8790f8ba688dfd5d910ac&chksm=bce46d88dc45698d595f189f768cf09f941690061a9998a4be7b4d0fbc2308e9aec658e9a6da&scene=27'
     saver = WebPageSaver(url)
     saver.save()
 
